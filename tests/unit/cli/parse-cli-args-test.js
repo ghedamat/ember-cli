@@ -55,13 +55,12 @@ describe('cli/parse-cli-args.js', function() {
       inputStream: through(),
       outputStream: through(function(data) { output.push(data); })
     }),
-    project: {
-      directory: '',
-      packageJSON: {}
-    }
+    isWithinProject: true
   };
 
-  var parse = function(e) { return parseCLIArgs(assign({}, environment, e)); };
+  var parse = function(e) {
+    return parseCLIArgs(assign({}, environment, e));
+  };
 
   it('parseCLIArgs() should find commands by name and aliases.', function() {
     output = [];
@@ -99,7 +98,7 @@ describe('cli/parse-cli-args.js', function() {
     expect(output.shift()).to.match(/requires the option.*package-name/);
   });
 
-  it('parseCLIArgs() should print a message if a task cannot need the presence/absence of a project.', function() {
+  it.only('parseCLIArgs() should print a message if a task cannot need the presence/absence of a project.', function() {
     output = [];
 
     // Inside project

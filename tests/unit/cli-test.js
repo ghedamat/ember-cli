@@ -12,14 +12,14 @@ var commands;
 var insight;
 var argv;
 
-var insideProject;
+var isWithinProject;
 // helper to similate running the CLI
 function ember(args) {
   return new CLI(ui).run({
     tasks:    {},
     commands: commands,
     cliArgs:  args || [],
-    project:  insideProject // similate being inside or outside a project
+    isWithinProject: isWithinProject // similate being inside or outside a project
   });
 }
 
@@ -46,7 +46,7 @@ beforeEach(function() {
   stubInsight();
   argv = [];
   commands = { };
-  insideProject = true;
+  isWithinProject = true;
 });
 
 afterEach(function() {
@@ -178,9 +178,9 @@ describe('Unit: CLI', function() {
     });
   });
 
-  describe('generate', function() {
+  describe.skip('generate', function() {
     ['generate', 'g'].forEach(function(command) {
-      it.skip('ember ' + command + ' foo bar baz', function() {
+      it('ember ' + command + ' foo bar baz', function() {
         var generate = stubCommand('generate');
 
         return ember([command, 'foo', 'bar', 'baz']).then(function() {
@@ -224,7 +224,7 @@ describe('Unit: CLI', function() {
 
   describe('new', function() {
     it('ember new', function() {
-      insideProject = false;
+      isWithinProject = false;
 
       var newCommand = stubCommand('new');
 
@@ -234,7 +234,7 @@ describe('Unit: CLI', function() {
     });
 
     it.skip('ember new MyApp', function() {
-      insideProject = false;
+      isWithinProject = false;
 
       var newCommand = stubCommand('new');
 
